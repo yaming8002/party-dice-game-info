@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Dice Game</title>
+  <script>
+    const ANDROID_READY = false;  // 上架後改 true
+    const IOS_READY = false;      // 上架後改 true
+
+    const ANDROID_URL =
+      "https://play.google.com/store/apps/details?id=com.yourcompany.yourdicegame";
+
+    const IOS_URL =
+      "https://apps.apple.com/app/idXXXXXXXX";
+
+    function detectPlatform() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(ua)) {
+        return "android";
+      } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        return "ios";
+      }
+      return "other";
+    }
+
+    function redirect() {
+      const platform = detectPlatform();
+
+      if (platform === "android") {
+        if (ANDROID_READY) {
+          window.location.replace(ANDROID_URL);
+        } else {
+          document.body.innerHTML = "<h2>Android version is under review.</h2>";
+        }
+      } else if (platform === "ios") {
+        if (IOS_READY) {
+          window.location.replace(IOS_URL);
+        } else {
+          document.body.innerHTML = "<h2>iOS version is under review.</h2>";
+        }
+      } else {
+        document.body.innerHTML = "<h2>Please open this link on a mobile device.</h2>";
+      }
+    }
+
+    window.onload = redirect;
+  </script>
+</head>
+<body>
+</body>
+</html>
